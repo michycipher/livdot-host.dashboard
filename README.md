@@ -4,7 +4,7 @@
 
 A host workspace for preparing and operating a live, ticketed event. The assessment focuses on backend-owned lifecycle state, operational readiness, guarded transitions, and failure handling. It opens with **Lagos Innovation Summit 2026** scheduled but blocked by missing ingest and ticket pricing.
 
-Built with Next.js App Router, strict TypeScript, React, Tailwind CSS, TanStack Query, Vitest, React Testing Library, and Lucide icons.
+Built with Next.js App Router, strict TypeScript, React, TanStack Query, Vitest, React Testing Library, Lucide icons, and one application stylesheet at `src/app/globals.css`.
 
 ## Running Locally
 

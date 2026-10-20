@@ -19,7 +19,7 @@ export class MockApiError extends Error {
   }
 }
 export function createMockEventApi({
-  latency = 650,
+  latency = 650, // Simulates backend delay so pending UI states are observable.
   scenario = "scheduled_blocked",
 }: { latency?: number; scenario?: DemoScenario } = {}) {
   let event = createScenario(scenario);
