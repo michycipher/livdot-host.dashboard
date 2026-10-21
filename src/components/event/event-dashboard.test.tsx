@@ -32,6 +32,9 @@ describe("host event dashboard", () => {
         .getByText("Scheduled")
         .closest("li"),
     ).toHaveAttribute("aria-current", "step");
+    expect(screen.getByText("— current stage")).toHaveClass("sr-only");
+    expect(screen.getAllByText("— upcoming stage")).toHaveLength(4);
+    expect(screen.getAllByText("— upcoming stage")[0]).toHaveClass("sr-only");
   });
   it("completes the last requirement but waits for an explicit Ready transition", async () => {
     const user = userEvent.setup();
