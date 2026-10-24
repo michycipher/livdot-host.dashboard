@@ -29,18 +29,20 @@ export function DemoControls({
         <div>
           <label htmlFor="scenario">Backend scenario</label>
           <div className="scenario-input">
-            <select
-              id="scenario"
-              value={scenario}
-              disabled={busy}
-              onChange={(e) => setScenario(e.target.value as DemoScenario)}
-            >
-              {Object.entries(SCENARIOS).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
+            <div className="scenario-select">
+              <select
+                id="scenario"
+                value={scenario}
+                disabled={busy}
+                onChange={(e) => setScenario(e.target.value as DemoScenario)}
+              >
+                {Object.entries(SCENARIOS).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button
               className="button secondary"
               disabled={busy}

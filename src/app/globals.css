@@ -1260,6 +1260,42 @@ footer {
 :root:not([data-theme="dark"]) .host-avatar {
   margin-left: 8px;
 }
+
+.scenario-select {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.scenario-select select {
+  width: 100%;
+  appearance: none;
+  padding-right: 46px;
+}
+
+.scenario-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  color: #357451;
+  pointer-events: none;
+  transform: translateY(-65%) rotate(45deg);
+}
+
+:root[data-theme="dark"] .scenario-select::after {
+  color: #9ac8a0;
+}
+
+@media (max-width: 640px) {
+  .scenario-input .scenario-select {
+    flex-basis: 100%;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
