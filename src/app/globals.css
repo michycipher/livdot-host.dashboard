@@ -1224,6 +1224,42 @@ footer {
     display: none;
   }
 }
+
+/* Keep the theme control with the host identity and use the original product palette. */
+.theme-toggle {
+  margin-left: auto;
+  color: #3d473b;
+  background: #edf0e9;
+  border-color: #d9ded3;
+  box-shadow: none;
+  animation: none;
+}
+
+.theme-toggle:hover {
+  color: #285d3c;
+  background: #e3eade;
+  border-color: #b9c8b5;
+}
+
+.host-avatar {
+  margin-left: 8px;
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  color: #c9ddc8;
+  background: #27362a;
+  border-color: #536a56;
+}
+
+:root[data-theme="dark"] .theme-toggle:hover {
+  color: #e2f0df;
+  background: #304532;
+  border-color: #789579;
+}
+
+:root:not([data-theme="dark"]) .host-avatar {
+  margin-left: 8px;
+}
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
