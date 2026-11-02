@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Moon, RadioTower, Sun } from "lucide-react";
 import { useEvent } from "@/hooks/use-event";
 import { useEventActions } from "@/hooks/use-event-actions";
 import { useEventApi } from "@/app/providers";
@@ -13,49 +11,25 @@ import { EventDetails } from "./event-details";
 import { EventActionPanel } from "./event-action-panel";
 import { SystemFeedback } from "./system-feedback";
 import { DemoControls } from "./demo-controls";
+import { AppHeader } from "./app-header";
+import { EventPreviewCard } from "./event-preview-card";
+import { syncEventToBoard } from "@/services/event-board-state";
 export function EventDashboard() {
   const query = useEvent();
   const mutation = useEventActions();
   const api = useEventApi();
   const [failureArmed, setFailureArmed] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem("livdot-theme", theme);
-  }, [theme]);
 
   function onCommand(command: EventCommand) {
     if (mutation.mutate(command)) setFailureArmed(false);
   }
   const event = query.data;
+  useEffect(() => {
+    if (event) syncEventToBoard(event);
+  }, [event]);
   return (
     <>
-      <div className="app-bar">
-        <div className="app-bar-inner">
-          <Link className="brand" href="/" aria-label="LIVDOT Host Dashboard">
-            <span className="brand-mark">
-              <RadioTower size={21} />
-            </span>
-            LIVDOT<span className="brand-period">.</span>
-          </Link>
-          <span className="app-divider" />
-          <span className="workspace-label">Host Dashboard</span>
-          <button
-            className="theme-toggle"
-            type="button"
-            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-            aria-pressed={theme === "dark"}
-            onClick={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
-          >
-            {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
-            <span>{theme === "light" ? "Dark" : "Light"}</span>
-          </button>
-          <span className="host-avatar" aria-label="Host workspace">
-            H
-          </span>
-        </div>
-      </div>
+      <AppHeader active="dashboard" />
       <main id="main-content">
         {!event ? (
           query.isError ? (
@@ -107,6 +81,7 @@ export function EventDashboard() {
             />
             <div className="dashboard-grid">
               <div className="main-column">
+                <EventPreviewCard event={event} />
                 <ReadinessPanel
                   event={event}
                   busy={mutation.isPending}

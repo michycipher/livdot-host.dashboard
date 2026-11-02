@@ -96,6 +96,19 @@ The tests cover:
 
 UI tests use React Testing Library and user-event, with an isolated service and QueryClient for each render. A controlled promise proves that the old status remains visible throughout an in-flight transition; tests do not depend on the production latency or snapshots.
 
+### Product surfaces
+
+The assessment now includes an `/events` library alongside the original host
+workspace. The library is intentionally presentation-only: it uses local
+fixtures to demonstrate the multi-event product surface while the existing
+mock API remains the source of truth for the canonical event workflow.
+
+The event workspace includes a broadcast preview. Scheduled events show a
+lightweight branded preview surface; Live, Completed, and Replay scenarios
+use the local `public/demo/live-preview.mp4` fixture so the full media state can
+be demonstrated without an external streaming service. The live fixture uses a
+10-second MP4 sample with AAC audio from [FreeToolsForWeb](https://freetoolsforweb.com/sample-files/videos/mp4/).
+
 ### Manual review flow
 
 1. Start in Scheduled with crew assigned and two missing requirements.
