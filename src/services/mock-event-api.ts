@@ -7,7 +7,7 @@ import type {
   HostEvent,
   ReadinessRequirementKey,
 } from "@/domain/event.types";
-import { createScenario } from "./mock-event-scenarios";
+import { createScenario, type ScenarioOverrides } from "./mock-event-scenarios";
 export class MockApiError extends Error {
   constructor(
     message: string,
@@ -21,8 +21,13 @@ export class MockApiError extends Error {
 export function createMockEventApi({
   latency = 650, // Simulates backend delay so pending UI states are observable.
   scenario = "scheduled_blocked",
-}: { latency?: number; scenario?: DemoScenario } = {}) {
-  let event = createScenario(scenario);
+  overrides = {},
+}: {
+  latency?: number;
+  scenario?: DemoScenario;
+  overrides?: ScenarioOverrides;
+} = {}) {
+  let event = createScenario(scenario, overrides);
   let failNext = false;
   const wait = () =>
     new Promise<void>((resolve) => setTimeout(resolve, latency));
@@ -105,7 +110,7 @@ export function createMockEventApi({
       });
     },
     resetScenario(nextScenario: DemoScenario) {
-      return mutate(() => createScenario(nextScenario));
+      return mutate(() => createScenario(nextScenario, overrides));
     },
   };
   return {

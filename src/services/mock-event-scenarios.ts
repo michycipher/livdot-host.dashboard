@@ -1,4 +1,8 @@
 import type { DemoScenario, HostEvent } from "@/domain/event.types";
+
+export type ScenarioOverrides = Partial<
+  Pick<HostEvent, "id" | "title" | "description" | "scheduledAt">
+>;
 export const SCENARIOS: Record<DemoScenario, string> = {
   draft: "Draft · no schedule",
   scheduled_blocked: "Scheduled · 1 of 3 ready",
@@ -9,7 +13,10 @@ export const SCENARIOS: Record<DemoScenario, string> = {
   completed: "Broadcast completed",
   replay: "Replay available",
 };
-export function createScenario(scenario: DemoScenario): HostEvent {
+export function createScenario(
+  scenario: DemoScenario,
+  overrides: ScenarioOverrides = {},
+): HostEvent {
   const crew = scenario !== "draft";
   const ingest = crew && scenario !== "scheduled_blocked";
   const tickets = ingest && scenario !== "scheduled_almost_ready";
@@ -42,5 +49,6 @@ export function createScenario(scenario: DemoScenario): HostEvent {
       currency: "NGN",
     },
     updatedAt: "2026-10-10T16:42:00.000Z",
+    ...overrides,
   };
 }

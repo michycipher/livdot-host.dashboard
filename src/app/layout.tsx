@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Providers } from "./providers";
 import "./globals.css";
 export const metadata: Metadata = {
   title: "Host Event Dashboard | LIVDOT",
@@ -15,7 +14,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
-        <Providers>{children}</Providers>
+        {children}
       </body>
     </html>
   );
